@@ -13,6 +13,7 @@ use phpDocumentor\Reflection\Types\Object_;
 use phpDocumentor\Reflection\Types\Self_;
 use PHPUnit\Framework\Attributes\CoversClass;
 use ReflectionMethod;
+use RuntimeException;
 
 #[CoversClass(ConstExpressionProvider::class)]
 class ConstExpressionProviderTest extends AbstractValueProviderTestCase
@@ -41,10 +42,10 @@ class ConstExpressionProviderTest extends AbstractValueProviderTestCase
 
     public function testGetValuesInvalidType(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('ConstExpressionProvider can only be used with object or self typehints');
 
-        $valueProvider = new ConstExpressionProvider(new Callable_([]), 'CONST_*', null);
+        $valueProvider = new ConstExpressionProvider(new Callable_(parameters: []), 'CONST_*', null);
         $valueProvider->getValues();
     }
 }
