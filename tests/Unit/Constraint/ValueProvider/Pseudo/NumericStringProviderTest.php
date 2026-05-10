@@ -19,9 +19,11 @@ class NumericStringProviderTest extends AbstractValueProviderTestCase
     public function testGetValues(): void
     {
         $valueProvider = new NumericStringProvider(new IntProvider());
-        $values = $valueProvider->getValues();
+        $values        = $valueProvider->getValues();
 
         static::assertValueTypes($values, ['numeric-string']);
-        static::assertContainsOnly('numeric', $values);
+        foreach ($values as $value) {
+            static::assertIsNumeric($value);
+        }
     }
 }
