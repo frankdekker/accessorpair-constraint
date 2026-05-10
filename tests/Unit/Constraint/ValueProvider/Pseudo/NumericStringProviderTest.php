@@ -22,8 +22,6 @@ class NumericStringProviderTest extends AbstractValueProviderTestCase
         $values        = $valueProvider->getValues();
 
         static::assertValueTypes($values, ['numeric-string']);
-        foreach ($values as $value) {
-            static::assertIsNumeric($value);
-        }
+        static::assertContainsOnlyNumeric($values);
     }
 }
