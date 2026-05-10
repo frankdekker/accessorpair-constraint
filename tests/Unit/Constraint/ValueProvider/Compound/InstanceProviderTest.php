@@ -62,7 +62,7 @@ class InstanceProviderTest extends AbstractValueProviderTestCase
      *
      * @throws Exception
      */
-    #[RequiresPhp('>=8.1')]
+    #[RequiresPhp('>=8.1.0')]
     public function testGetEnumValues(): void
     {
         $valueProvider = new InstanceProvider(TestEnum::class);
