@@ -18,7 +18,9 @@ use DigitalRevolution\AccessorPairConstraint\Constraint\ValueProvider\Scalar\Flo
 use DigitalRevolution\AccessorPairConstraint\Constraint\ValueProvider\Scalar\IntProvider;
 use DigitalRevolution\AccessorPairConstraint\Constraint\ValueProvider\Scalar\StringProvider;
 use LogicException;
+use phpDocumentor\Reflection\PseudoTypes\ArrayKey;
 use phpDocumentor\Reflection\PseudoTypes\CallableString;
+use phpDocumentor\Reflection\PseudoTypes\ClassString;
 use phpDocumentor\Reflection\PseudoTypes\ConstExpression;
 use phpDocumentor\Reflection\PseudoTypes\FloatValue;
 use phpDocumentor\Reflection\PseudoTypes\HtmlEscapedString;
@@ -37,8 +39,9 @@ use phpDocumentor\Reflection\PseudoTypes\PositiveInteger;
 use phpDocumentor\Reflection\PseudoTypes\StringValue;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use phpDocumentor\Reflection\Type;
-use phpDocumentor\Reflection\Types\ArrayKey;
-use phpDocumentor\Reflection\Types\ClassString;
+use phpDocumentor\Reflection\Types\ArrayKey as DeprecatedArrayKey;
+use phpDocumentor\Reflection\Types\ClassString as DeprecatedClassString;
+use phpDocumentor\Reflection\Types\Object_;
 use ReflectionMethod;
 
 class PseudoValueProviderFactory
@@ -56,6 +59,7 @@ class PseudoValueProviderFactory
     public function getProvider(Type $typehint, ?ReflectionMethod $method = null): ?ValueProvider
     {
         switch (get_class($typehint)) {
+            case DeprecatedArrayKey::class:
             case ArrayKey::class:
                 return new ValueProviderList(new StringProvider(new NumericStringProvider(new IntProvider())), new IntProvider());
             case IntegerRange::class:
@@ -83,11 +87,19 @@ class PseudoValueProviderFactory
     protected function getPseudoStringProvider(Type $typehint): ?ValueProvider
     {
         switch (get_class($typehint)) {
-            case ClassString::class:
+            case DeprecatedClassString::class:
                 $fqsen = null;
                 if ($typehint->getFqsen() !== null) {
                     /** @var class-string $fqsen */
                     $fqsen = (string)$typehint->getFqsen();
+                }
+
+                return new ClassStringProvider($fqsen);
+            case ClassString::class:
+                $fqsen = null;
+                if ($typehint->getGenericType() instanceof Object_ && $typehint->getGenericType()->getFqsen() !== null) {
+                    /** @var class-string $fqsen */
+                    $fqsen = (string)$typehint->getGenericType()->getFqsen();
                 }
 
                 return new ClassStringProvider($fqsen);
