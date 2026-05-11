@@ -135,7 +135,7 @@ class NativeValueProviderFactoryTest extends TestCase
 
     public function testGetProviderUnknown(): void
     {
-        $providerFactory = new NativeValueProviderFactory($this->createMock(ValueProviderFactory::class));
+        $providerFactory = new NativeValueProviderFactory(static::createStub(ValueProviderFactory::class));
 
         static::assertNull(
             $providerFactory->getProvider(

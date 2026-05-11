@@ -33,7 +33,7 @@ class TypehintResolverTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    #[RequiresPhp('>=8.0')]
+    #[RequiresPhp('>=8.0.0')]
     public function testGetParamTypehintUnionType(): void
     {
         static::assertParamTypehint(new Union());
@@ -43,7 +43,7 @@ class TypehintResolverTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    #[RequiresPhp('>=8.1')]
+    #[RequiresPhp('>=8.1.0')]
     public function testGetParamTypehintIntersectionType(): void
     {
         static::assertParamTypehint(new Intersection());
@@ -61,7 +61,7 @@ class TypehintResolverTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    #[RequiresPhp('>=8.0')]
+    #[RequiresPhp('>=8.0.0')]
     public function testGetReturnTypehintUnionType(): void
     {
         static::assertReturnTypehint(new Union());
@@ -70,7 +70,7 @@ class TypehintResolverTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    #[RequiresPhp('>=8.1')]
+    #[RequiresPhp('>=8.1.0')]
     public function testGetReturnTypehintIntersectionType(): void
     {
         static::assertReturnTypehint(new Intersection());

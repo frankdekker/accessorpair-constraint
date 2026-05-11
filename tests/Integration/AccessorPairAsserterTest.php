@@ -198,7 +198,7 @@ class AccessorPairAsserterTest extends TestCase
         static::assertAccessorPairs(CustomConstructorParameters::class, $config);
     }
 
-    #[RequiresPhp('>=8.0')]
+    #[RequiresPhp('>=8.0.0')]
     public function testUnionProperty(): void
     {
         // Test a method with a union typehint: A|B
@@ -206,14 +206,14 @@ class AccessorPairAsserterTest extends TestCase
         static::assertAccessorPairs(UnionNullableProperty::class);
     }
 
-    #[RequiresPhp('>=8.1')]
+    #[RequiresPhp('>=8.1.0')]
     public function testIntersectionInterfaceProperty(): void
     {
         // Test a method with an intersection typehint: A&B
         static::assertAccessorPairs(IntersectionInterfaceProperty::class);
     }
 
-    #[RequiresPhp('>=8.1')]
+    #[RequiresPhp('>=8.1.0')]
     public function testIntersectionClassProperty(): void
     {
         // Test a method with an intersection typehint: A&B

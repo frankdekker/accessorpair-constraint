@@ -166,7 +166,7 @@ class PseudoValueProviderFactoryTest extends TestCase
 
     public function testGetProviderUnknown(): void
     {
-        $providerFactory = new PseudoValueProviderFactory($this->createMock(ValueProviderFactory::class));
+        $providerFactory = new PseudoValueProviderFactory(static::createStub(ValueProviderFactory::class));
 
         static::assertNull(
             $providerFactory->getProvider(
